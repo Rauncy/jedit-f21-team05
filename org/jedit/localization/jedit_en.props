@@ -345,6 +345,7 @@ combined-options.label=$Options...
 #{{{ Recent Directories menu
 recent-directories.label=$Recent Directories
 no-recent-dirs.label=No Recent Directories
+clear-recent-dirs.label=Clear Recent Directories
 #}}}
 
 #{{{ Favorites menu

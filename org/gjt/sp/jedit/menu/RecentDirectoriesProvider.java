@@ -115,6 +115,7 @@ public class RecentDirectoriesProvider implements DynamicMenuProvider
 			}
 		}
 
+		//If sort, all items are in the menu list and not mored. More the menu items after sorting
 		if(sort)
 		{
 			menuItems.sort(new MenuItemTextComparator());
@@ -132,5 +133,10 @@ public class RecentDirectoriesProvider implements DynamicMenuProvider
 				menu.add(menuItems.elementAt(i));
 			}
 		}
+
+		JMenuItem menuItem = new JMenuItem(jEdit.getProperty("clear-recent-dirs.label"));
+		menuItem.addActionListener(e -> model.removeAllElements());
+		menu.addSeparator();
+		menu.add(menuItem);
 	} //}}}
 }
