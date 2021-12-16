@@ -172,7 +172,13 @@ public class TextAreaPainter extends JComponent implements TabExpander
 		textArea.updateMaxHorizontalScrollWidth();
 		textArea.scrollBarsInitialized = true;
 	} //}}}
-
+	public void repeatingBounds(int x, int y, int width, int height)
+	{
+		super.setBounds(x,y,width,height);
+		textArea.propertiesChanged();
+		textArea.updateMaxHorizontalScrollWidth();
+		textArea.scrollBarsInitialized = true;
+	}
 	//{{{ addNotify() method
 	@Override
 	public void addNotify()

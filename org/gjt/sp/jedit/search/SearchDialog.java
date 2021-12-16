@@ -39,6 +39,8 @@ import org.gjt.sp.jedit.browser.VFSBrowser;
 import org.gjt.sp.jedit.gui.*;
 import org.gjt.sp.jedit.io.*;
 import org.gjt.sp.jedit.*;
+import org.gjt.sp.jedit.textarea.TextAreaExtension;
+import org.gjt.sp.jedit.textarea.TextAreaPainter;
 //}}}
 
 /**
@@ -160,6 +162,7 @@ public class SearchDialog extends EnhancedDialog
 				searchSelection.setSelected(true);
 				hyperSearch.setSelected(true);
 			}
+			highlightAll(view, searchString);
 		}
 
 		if(searchIn == CURRENT_BUFFER)
@@ -201,6 +204,42 @@ public class SearchDialog extends EnhancedDialog
 
 		updateEnabled();
 	} //}}}
+	public static void highlightAll(View view, String searchString)
+	{
+		Component comp = SearchDialog.getSearchDialog(view);
+		if(!comp.isShowing())
+			comp = view;
+		try
+		{
+			SearchFileSet fileset = SearchAndReplace.getSearchFileSet();
+			if(fileset.getFileCount(view) == 0)
+			{
+
+			}
+			else
+			{
+				String[] fileNames = fileset.getFiles(view);
+				for(int i = 0; i < fileset.getFileCount(view); i++)
+				{
+					String curView = view.toString();
+					while(curView.contains(searchString))
+					{
+						int start = curView.indexOf(searchString);
+						int end = start + searchString.length();
+						TextAreaPainter highlighter = view.getTextArea().getPainter();
+						highlighter.repeatingBounds(start, end, 5, 5); //5 is a current placeholder #
+
+					}
+				}
+			}
+
+		}
+		finally
+		{
+
+		}
+
+	}
 
 	//{{{ ok() method
 	@Override
