@@ -386,6 +386,31 @@ public class StatusBar extends JPanel
 				buf.append('/');
 				buf.append(bufferLength);
 				buf.append(')');
+				String text = textArea.getText();
+				int wordCount = 1;
+				int caretCount = 1;
+				for(int i = 0; i < bufferLength-1; i++) {
+					if ((text.charAt(i) == ' ' || text.charAt(i) == '\n') && (text.charAt(i + 1) != ' ' && text.charAt(i + 1) != '\n')) {
+						wordCount++;
+					}
+					if(i == caretPosition-1){
+						caretCount = wordCount;
+					}
+				}
+				if(bufferLength == 0){
+					caretCount = wordCount = 0;
+				} else if(text.charAt(0) == ' ' || text.charAt(0) == '\n'){
+					caretCount--;
+					wordCount--;
+				}
+				if(caretPosition == bufferLength){
+					caretCount = wordCount;
+				}
+				buf.append('(');
+				buf.append(caretCount);
+				buf.append('/');
+				buf.append(wordCount);
+				buf.append(')');
 			}
 			else if (jEdit.getBooleanProperty("view.status.show-caret-offset", true))
 			{
